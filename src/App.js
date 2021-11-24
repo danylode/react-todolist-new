@@ -8,8 +8,8 @@ import CreateTaskForm from './Components/Tasks/CreateTaskForm';
 
 const corePath = 'http://localhost:5000/api/';
 const getLists = corePath + 'lists';
-const getTasksEndpoint = corePath + 'tasks?listId=16&all=true';
-const postTaskEndpoint = corePath + 'tasks?listId=16';
+const getTasksEndpoint = corePath + 'tasks/all';
+const postTaskEndpoint = corePath + 'tasks?listId=';
 const deleteTaskEndpoint = corePath + 'tasks/';
 const patchTaskEndpoint = corePath + 'tasks/'
 
@@ -28,23 +28,20 @@ function App() {
 
   let [todoLists, setTodoLists] = useState(testLists);
   let [allTasks, setAllTasks] = useState(testTasks);
+  let [currentListId, setCurrentListId] = useState(17);
 
-  let [currentListId, setCurrentListId] = useState(16);
 
   let changeList = (listId) => {
     setCurrentListId(listId);
   }
 
-  let addTask = (task) => {
-    setAllTasks([...allTasks, task]);
+  let addTask = (listId, task) => {
+    postMethod(listId, task).then((data) => setAllTasks(data));
   }
 
   let deleteTask = (taskId) => {
-    //setAllTasks(/*allTasks.splice(, 1)*/);
-    console.log(allTasks.filter((task) => task.id == taskId));
+    deleteMethod(taskId).then((data) => setAllTasks(data));
   }
-
-
 
   //Server methods
   let getMethod = (endPoint) => {
@@ -53,12 +50,44 @@ function App() {
     }).then(request => request.json())
   }
 
+  let deleteMethod = (taskId) => {
+    return fetch(deleteTaskEndpoint + taskId, {
+      method: 'DELETE'
+    }).then(response => response.json());
+  }
+
+  let postMethod = (listId, task) => {
+    return fetch(postTaskEndpoint + listId, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(task)
+    }).then(response => response.json());
+  }
+
+  let patchMethod = (task) => {
+    console.log(patchTaskEndpoint + task.taskId);
+    let taskObject = [{
+      "path": "Done",
+      "op": "add",
+      "value": task.taskDone
+    }]
+    return fetch(patchTaskEndpoint + task.taskId, {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json-patch+json"
+      },
+      body: JSON.stringify(taskObject)
+    })
+  }
+  //end server methods
+
   //Get Lists
   useEffect(() => {
     getMethod(getLists).then((data) => setTodoLists(data));
     getMethod(getTasksEndpoint).then((data) => setAllTasks(data));
   }, [])
-
 
   return (
     <div className="App">

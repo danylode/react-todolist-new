@@ -6,17 +6,20 @@ export default function CreateTaskForm(props) {
     let onSubmit = (event) => {
         event.preventDefault();
         let newTask = {
-            listId: currentList,
-            name: event.target[0].value,
-            description: event.target[1].value
+            title: event.target[0].value,
+            done: false,
+            description: event.target[1].value,
+            dueDate: event.target[2].value
         }
-        props.onSubmit(newTask);
+        console.log(newTask);
+        props.onSubmit(currentList, newTask);
     }
 
     return (
-        <form id="add-task-form" onSubmit={onSubmit}> 
-            <input placeholder="name"/>
-            <input placeholder="description"/>
+        <form id="add-task-form" onSubmit={onSubmit}>
+            <input placeholder="name" />
+            <input placeholder="description" />
+            <input type="date" />
             <button type="submit">Add</button>
         </form>
     )

@@ -3,7 +3,8 @@ import React from 'react'
 export default function List(props) {
     let list = props.list;
     let selectList = () => {
-        props.clickHandler(list.id);
+        console.log(list.listId)
+        props.clickHandler(list.listId);
     }
 
     return (
