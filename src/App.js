@@ -8,7 +8,8 @@ import CreateTaskForm from './Components/Tasks/CreateTaskForm';
 
 const corePath = 'http://localhost:5000/api/';
 const getLists = corePath + 'lists';
-const getTasksEndpoint = corePath + 'tasks/all';
+const getTasksEndpoint = corePath + 'tasks?all=true&listId=';
+const getAllTasksEndpoint = corePath + 'tasks/all';
 const postTaskEndpoint = corePath + 'tasks?listId=';
 const deleteTaskEndpoint = corePath + 'tasks/';
 const patchTaskEndpoint = corePath + 'tasks/'
@@ -26,9 +27,9 @@ function App() {
     { id: 3, listId: 1, name: 'test task 2', description: "test desc", done: true }
   ]
 
-  let [todoLists, setTodoLists] = useState(testLists);
-  let [allTasks, setAllTasks] = useState(testTasks);
-  let [currentListId, setCurrentListId] = useState(17);
+  let [todoLists, setTodoLists] = useState([]);
+  let [allTasks, setAllTasks] = useState([]);
+  let [currentListId, setCurrentListId] = useState(16);
 
 
   let changeList = (listId) => {
@@ -86,7 +87,7 @@ function App() {
   //Get Lists
   useEffect(() => {
     getMethod(getLists).then((data) => setTodoLists(data));
-    getMethod(getTasksEndpoint).then((data) => setAllTasks(data));
+    getMethod(getAllTasksEndpoint).then((data) => setAllTasks(data));
   }, [])
 
   return (
