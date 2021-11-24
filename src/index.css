@@ -1,10 +1,24 @@
 body {
     margin: 0;
+
 }
 
 #root {
     display: flex;
     justify-content: center;
     min-height: 100%;
-    flex-basis: 50%;
+    flex-basis: 75%;
+}
+
+
+h1 {
+    font-size: 18px;
+}
+
+p {
+    font-size: 0.8em;
+}
+
+button {
+    max-height: 25px;
 }

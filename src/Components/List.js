@@ -8,7 +8,7 @@ export default function List(props) {
 
     return (
         <div className="list" onClick={selectList}>
-            {list.id + ': ' + list.name}
+            {list.listId + ': ' + list.title}
         </div>
     )
 }

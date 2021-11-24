@@ -1,13 +1,20 @@
 .App {
     display: flex;
     margin-top: 100px;
-    height: 50vh;
+    height: 80vh;
 }
 
-#todolist-sidebar {
-    flex-basis: 50%;
-    background-color: gray;
-    padding: 25px;
+.nonvisible {
+    display: none;
+}
+
+.task-done {
+    color: gray;
+    text-decoration: line-through;
+}
+
+.date-red {
+    color: red;
 }
 
 #tasks {
@@ -15,16 +22,41 @@
     flex-direction: column;
     justify-content: space-between;
     flex-basis: 50%;
-    background-color: black;
+    margin-left: 10px;
+}
+
+#todolist-sidebar, .task{
+    border: 1px solid black;
+    border-radius: 10px 15px;
+    padding: 10px 10px;
+}
+
+
+/* Task styles */
+
+.task {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+}
+
+.task-status {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Sidebar styles */
+
+#todolist-sidebar {
+    flex-basis: 50%;
     padding: 25px;
 }
+
+
+/* Tasks add form styles */
 
 #add-task-form {
     display: flex;
     background-color: darkgreen;
 }
-
-.task {
-    color: white;
-}
-
