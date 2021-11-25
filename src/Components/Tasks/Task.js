@@ -2,15 +2,16 @@ import React, {useState} from 'react'
 import classNames from 'classnames';
 
 export default function Task(props) {
-    let [task, setTask] = useState(props.task);
+    let task = props.task;
 
     //Events
     let onDelete = () => {
-        props.onDelete(task.taskId);
+        props.deleteHandler(task.taskId);
     }
 
     let onDoneChange = (event) => {
-        setTask({...task, done: event.target.checked})
+        task.taskDone = event.target.checked;
+        props.changeHandler(task);
     }
 
     return (
