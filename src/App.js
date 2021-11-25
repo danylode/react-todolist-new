@@ -6,8 +6,6 @@ import Tasks from './Components/Tasks/Tasks';
 import CreateTaskForm from './Components/Tasks/CreateTaskForm';
 import serverMethods from './serverMethods';
 
-
-
 function App() {
   let [todoLists, setTodoLists] = useState([]);
   let [allTasks, setAllTasks] = useState([]);
@@ -35,7 +33,10 @@ function App() {
     serverMethods.getTasksMethod().then((data) => {
       if (data != null) {
         setAllTasks(data);
-        console.log(data);
+        /*let minListId = () => {
+          return data.map((x) => {x.listId});
+        }
+        //console.log(minListId());*/
         setCurrentListId(data[0].taskListId);
       }
     });

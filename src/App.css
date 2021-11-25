@@ -5,7 +5,7 @@
 }
 
 .nonvisible {
-    display: none;
+    display: none !important;
 }
 
 .task-done {
@@ -25,12 +25,15 @@
     margin-left: 10px;
 }
 
-#todolist-sidebar, .task{
+#todolist-sidebar, .task, #showAllPanel{
     border: 1px solid black;
     border-radius: 10px 15px;
     padding: 10px 10px;
 }
 
+#showAllPanel {
+    margin-bottom: 10px;
+}
 
 /* Task styles */
 
