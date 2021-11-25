@@ -1,6 +1,5 @@
 const corePath = 'http://localhost:5000/api/';
 const getLists = corePath + 'lists';
-const getTasksEndpoint = corePath + 'tasks?all=true&listId=';
 const getAllTasksEndpoint = corePath + 'tasks/all';
 const postTaskEndpoint = corePath + 'tasks?listId=';
 const deleteTaskEndpoint = corePath + 'tasks/';
