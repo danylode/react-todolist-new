@@ -1,22 +1,27 @@
 const corePath = 'http://localhost:5000/api/';
-const getLists = corePath + 'lists';
-const getAllTasksEndpoint = corePath + 'tasks/all';
+const getAllTasksByListId = corePath + 'tasks';
+const getDashboard = corePath + 'Dashboard/npgsql';
+const getTodayTasks = corePath + 'collection/today';
 const postTaskEndpoint = corePath + 'tasks?listId=';
 const deleteTaskEndpoint = corePath + 'tasks/';
 const patchTaskEndpoint = corePath + 'tasks/'
 
 export default {
-  getListsMethod: () => {
-    return fetch(getLists, {
+  getTaskListById: (listId) => {
+    return fetch(getAllTasksByListId + `?listId=${listId}&all=true`, {
       method: 'GET'
     }).then(request => request.json())
   },
-  getTasksMethod: () => {
-    return fetch(getAllTasksEndpoint, {
+  getDashboard: () => {
+    return fetch(getDashboard, {
       method: 'GET'
     }).then(request => request.json())
   },
-
+  getTodayTasks: () => {
+    return fetch(getTodayTasks, {
+      method: 'GET'
+    }).then(request => request.json()) 
+  },
   deleteMethod: (taskId) => {
     return fetch(deleteTaskEndpoint + taskId, {
       method: 'DELETE'
@@ -33,14 +38,13 @@ export default {
     }).then(response => response.json());
   },
 
-  patchMethod: (task) => {
-    console.log(patchTaskEndpoint + task.taskId);
+  patchMethod: (taskId, state) => {
     let taskObject = [{
       "path": "Done",
       "op": "add",
-      "value": task.taskDone
+      "value": state
     }]
-    return fetch(patchTaskEndpoint + task.taskId, {
+    return fetch(patchTaskEndpoint + taskId, {
       method: 'PATCH',
       headers: {
         "Content-Type": "application/json-patch+json"
